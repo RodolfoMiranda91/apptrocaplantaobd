@@ -1,0 +1,259 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: 06-Dez-2018 às 02:01
+-- Versão do servidor: 10.1.35-MariaDB
+-- versão do PHP: 7.2.9
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `patota_apps`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `enfermeiros`
+--
+
+CREATE TABLE `enfermeiros` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `categoria` varchar(100) NOT NULL,
+  `coren` int(11) NOT NULL,
+  `setor` varchar(100) NOT NULL,
+  `senha` varchar(10) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `enfermeiros`
+--
+
+INSERT INTO `enfermeiros` (`id`, `nome`, `categoria`, `coren`, `setor`, `senha`, `created`, `modified`) VALUES
+(2, 'Enfermeiro Pedro', 'Estagio', 15, 'Pediatria', 'patota', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 'Enfermeiro Alvez', 'Neorologista', 98, 'Emergencia', '$2y$10$kVf', '0000-00-00 00:00:00', '2018-10-18 22:28:22');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `medicos`
+--
+
+CREATE TABLE `medicos` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `crm` int(11) NOT NULL,
+  `setor` varchar(100) NOT NULL,
+  `senha` varchar(10) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `medicos`
+--
+
+INSERT INTO `medicos` (`id`, `nome`, `crm`, `setor`, `senha`, `created`, `modified`) VALUES
+(1, 'Dr. Fabricio', 788393993, 'Pediatria', '$2y$10$1of', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'Pedro', 43242342, 'Setor Dois', '$2y$10$ljW', '2018-10-18 22:32:32', '2018-10-18 22:32:32');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `pacientes`
+--
+
+CREATE TABLE `pacientes` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `data_nas` varchar(100) NOT NULL,
+  `data_internacao` varchar(100) NOT NULL,
+  `setor` varchar(100) NOT NULL,
+  `cpf` varchar(100) NOT NULL,
+  `cnes` varchar(1000) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `pacientes`
+--
+
+INSERT INTO `pacientes` (`id`, `nome`, `data_nas`, `data_internacao`, `setor`, `cpf`, `cnes`, `created`, `modified`) VALUES
+(10, 'Paciente Aline', '10 Outubro 2018 - 09:45 ', '10 Outubro 2018 - 10:50 ', 'Pediatria', '477-892-344-2', 'teste', '2018-10-10 20:47:38', '2018-10-10 20:47:38'),
+(11, 'Paciente Guilherme', '07 Janeiro 2009 - 17:45 ', '10 Outubro 2018 - 17:45 ', 'Neorologista', '993213123199', 'teste', '2018-10-10 20:49:52', '2018-10-10 20:49:52'),
+(12, 'Paciente Andreia', '15 Junho 2010 - 13:45 ', '08 Outubro 2018 - 08:40 ', 'Pediatria', '477-892-344-1', 'teste', '2018-10-10 20:52:26', '2018-10-10 20:52:26'),
+(13, 'Jose Paulista', '31 Dezembro 1899 - 00:00 ', '05 Dezembro 2018 - 14:10 ', 'Clinico', '123.123.123-33', '321321321321', '2018-12-06 00:44:23', '2018-12-06 00:44:23');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL,
+  `role` varchar(20) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `roles`
+--
+
+INSERT INTO `roles` (`id`, `role`, `created`, `modified`) VALUES
+(3, 'Enfermeira Chefe', '2018-10-10 20:34:48', '2018-10-18 22:44:52'),
+(4, 'Master', '2018-10-10 20:34:55', '2018-10-10 20:34:55');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `status`
+--
+
+CREATE TABLE `status` (
+  `id` int(11) NOT NULL,
+  `pacientes_id` int(11) NOT NULL,
+  `medicos_id` int(11) NOT NULL,
+  `leito` varchar(100) NOT NULL,
+  `status` varchar(100) NOT NULL,
+  `medicacao` varchar(100) NOT NULL,
+  `banho` varchar(100) NOT NULL,
+  `transferencia` varchar(100) NOT NULL,
+  `alta` varchar(100) NOT NULL,
+  `data_alteracao` datetime NOT NULL,
+  `plantao` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `status`
+--
+
+INSERT INTO `status` (`id`, `pacientes_id`, `medicos_id`, `leito`, `status`, `medicacao`, `banho`, `transferencia`, `alta`, `data_alteracao`, `plantao`) VALUES
+(1, 10, 2, 'Teste', 'Teste', 'Teste', 'Teste', 'Teste', 'Teste', '2018-10-09 00:00:00', 'Teste'),
+(2, 13, 1, '18', 'Estavel', '1', 'nao', 'permanencia no hospital', 'permanece no hospital', '2018-12-05 00:00:00', 'Noturno');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `username` varchar(25) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `roles_id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `password`, `roles_id`, `created`, `modified`) VALUES
+(5, 'vitor pires loddi', 'vitor', 'vitor_loddi@hotmail.com', '$2y$10$swFPBFt.ttBFW0/3itAMb.GCv3wpKfHWWa/OYurM5fVa7n0InZk5S', 4, '2018-10-10 20:37:27', '2018-10-18 23:36:58'),
+(7, 'julio', 'julio', 'julio@gmail.com', '$2y$10$OtkiaVuKabezModfii1Aq./HM2wmBBhgG8pO67jQlBODAJ660.qf2', 3, '2018-10-18 23:37:57', '2018-10-18 23:37:57');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `enfermeiros`
+--
+ALTER TABLE `enfermeiros`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `medicos`
+--
+ALTER TABLE `medicos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pacientes`
+--
+ALTER TABLE `pacientes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `enfermeiros`
+--
+ALTER TABLE `enfermeiros`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `medicos`
+--
+ALTER TABLE `medicos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `pacientes`
+--
+ALTER TABLE `pacientes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `status`
+--
+ALTER TABLE `status`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
